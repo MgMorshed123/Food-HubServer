@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { User } from "../model/user.model";
 import bcrypt from "bcryptjs";
 import crypto from "crypto";
+import cloudinary from "../utils/cloudinary";
 
 export const signup = async (req: Request, res: Response) => {
   try {
