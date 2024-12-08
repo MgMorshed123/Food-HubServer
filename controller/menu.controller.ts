@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { Menu } from "../model/menu.model";
 import { Restaurant } from "../model/restaurant.model";
 import mongoose from "mongoose";
+import uploadImageOnCloudinary from "../utils/imageUpload";
 
 export const addMenu = async (req: Request, res: Response) => {
   try {
@@ -13,11 +14,12 @@ export const addMenu = async (req: Request, res: Response) => {
         message: "Image is required",
       });
     }
-    // const imageUrl = await uploadImageOnCloudinary(file as Express.Multer.File);
+    const imageUrl = await uploadImageOnCloudinary(file as Express.Multer.File);
     const menu: any = await Menu.create({
       name,
       description,
       price,
+      image: imageUrl,
     });
     const restaurant = await Restaurant.findOne({ user: req.id });
     if (restaurant) {
